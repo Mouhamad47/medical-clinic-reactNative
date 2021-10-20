@@ -1,17 +1,17 @@
 import { useNavigation, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './home';
+import HomeScreen from '../screens/HomeScreen/home';
 // import SettingsScreen from './settings';
-import NotificationsScreen from './notification';
-import MessagesScreen from './messages';
-import EditProfile from './profile';
+import NotificationsScreen from '../screens/NotificationScreen/notification';
+import MessagesScreen from '../screens/MessagesScreen/messages';
+import EditProfile from '../screens/ProfileScreen/profile';
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import AsyncStorage from '@react-native-community/async-storage';
 // import Switching from './switching';
-import MessageStack from './messages';
+import MessageStack from '../screens/MessagesScreen/messages';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -39,7 +39,7 @@ export default function MainTabScreen() {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <Icon name="home" color={'#294E8E'} size={23} />
+            <Icon name="home" color={'#FCFCFC'} size={23} />
           ),
           title: 'Home',
 
@@ -53,7 +53,7 @@ export default function MainTabScreen() {
         options={{
           tabBarLabel: 'Notifications',
           tabBarIcon: ({ color }) => (
-            <Icon name="bell" color={'#294E8E'} size={23} />
+            <Icon name="bell" color={'#FCFCFC'} size={23} />
           ),
           title: 'Home',
         }}
@@ -64,7 +64,7 @@ export default function MainTabScreen() {
         options={{
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color }) => (
-            <Icon name="comment" color={'#294E8E'} size={23} />
+            <Icon name="comment" color={'#FCFCFC'} size={23} />
           ),
           title: 'Home',
         }}
@@ -75,7 +75,7 @@ export default function MainTabScreen() {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
-            <Icon name="user" color={'#294E8E'} size={23} />
+            <Icon name="user" color={'#FCFCFC'} size={23} />
           ),
           title: 'Home',
         }}

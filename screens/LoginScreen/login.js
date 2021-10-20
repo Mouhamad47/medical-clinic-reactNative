@@ -7,13 +7,13 @@ export default function Login() {
     return (
 
 
-        <ImageBackground source={require('../pictures/loginback.png')} style={styles.img}>
+        <ImageBackground source={require('../../pictures/loginback.png')} style={styles.img}>
             <View style={styles.logindiv}>
                
             </View>
             <View style={styles.logodiv}>
-                    <Image source={require('../pictures/logo1.png')} style={styles.logo}></Image>
-                    <Text style={styles.logotext}>Medical Clinic</Text>
+                    <Image source={require('../../pictures/lognative.png')} style={styles.logo}></Image>
+                    {/* <Text style={styles.logotext}>Medical Clinic</Text> */}
                 </View>
                 <View style={styles.form}>
                     <Text style={styles.label}><Icon name="user" style={{fontSize:16}} /> Email Address</Text>
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     logo: {
         width: 120,
         height: 120,
+        marginTop : 15
     },
     logocontainer: {
         alignItems: 'center',
