@@ -1,6 +1,7 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, ScrollView, ImageBackground,FlatList, Dimensions, Image, Item, TextInput, Button, Pressable } from 'react-native';
 import React, { useState, createRef } from 'react';
+import Header from '../../components/header';
 
 
 
@@ -31,7 +32,9 @@ export default function Notification(){
     
     ]
     return(
-        <ScrollView>
+        
+        <ScrollView style={{backgroundColor:'white'}}>
+            <Header />
             <View style={styles.title}>
                 <Text style={styles.titleText}>Notifications</Text>
             </View>
@@ -64,9 +67,10 @@ const styles = StyleSheet.create({
         padding : 10
     },  
     titleText :{
-        fontSize : 20,
+        fontSize : 25,
         fontWeight: 600,
-        color: '#24447C'
+        color: '#24447C',
+        letterSpacing: 1,
     },  
     notificationList:{
       marginTop:20,
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
       padding:20,
       marginTop:5,
       marginBottom:5,
-      backgroundColor: '#9CDCDC',
+      backgroundColor: '#B4E4E4',
       flexDirection: 'row',
       borderRadius:10,
       opacity : 0.9,
@@ -91,5 +95,6 @@ const styles = StyleSheet.create({
       fontSize:13,
       color: "#24447C",
       marginLeft:10,
+      fontWeight : 600
     },
   });

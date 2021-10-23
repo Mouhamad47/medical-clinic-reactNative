@@ -30,19 +30,22 @@ export default function MainTabScreen() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="#24447C"
-      barStyle={{ backgroundColor: '#44BCBC' }}
+      activeColor="#3BA5A5"
+      inactiveColor='#B4E4E4'
+
+      barStyle={{ backgroundColor: 'white' }}
     >
       <Tab.Screen
-        name="Feed"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <Icon name="home" color={'#FCFCFC'} size={23} />
+            
+            <Icon name="home" color={color} size={25}  />
           ),
           title: 'Home',
-
+            
         }}
 
 
@@ -53,9 +56,9 @@ export default function MainTabScreen() {
         options={{
           tabBarLabel: 'Notifications',
           tabBarIcon: ({ color }) => (
-            <Icon name="bell" color={'#FCFCFC'} size={23} />
+            <Icon name="bell" color={color} size={25} />
           ),
-          title: 'Home',
+          title: 'Notifications',
         }}
       />
       <Tab.Screen
@@ -64,9 +67,9 @@ export default function MainTabScreen() {
         options={{
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color }) => (
-            <Icon name="comment" color={'#FCFCFC'} size={23} />
+            <Icon name="comment" color={color} size={25} />
           ),
-          title: 'Home',
+          title: 'Messages',
         }}
       />
       <Tab.Screen
@@ -75,9 +78,9 @@ export default function MainTabScreen() {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
-            <Icon name="user" color={'#FCFCFC'} size={23} />
+            <Icon  name="user" color={color} size={25} />
           ),
-          title: 'Home',
+          title: 'Profile',
         }}
       />
     </Tab.Navigator>

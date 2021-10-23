@@ -127,6 +127,6 @@ const styles = StyleSheet.create({
         lineHeight: 22,
         fontWeight: 'bold',
         letterSpacing: 0.25,
-        color: '#24447C',
+        color: 'white',
     },
 });

@@ -4,6 +4,7 @@ import React, { useState, createRef } from 'react';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { Avatar, Card } from 'react-native-paper';
 import EventCalendar from 'react-native-events-calendar';
+import Header from '../../components/header';
 
 
 
@@ -39,34 +40,36 @@ export default function Home() {
 
         //     />
         // </View>
+        <ScrollView>
+            <Header/>
+            <CalendarList
+                // Callback which gets executed when visible months change in scroll view. Default = undefined
+                onVisibleMonthsChange={(months) => { console.log('now these months are visible', months); }}
+                // Max amount of months allowed to scroll to the past. Default = 50
+                pastScrollRange={2}
+                // Max amount of months allowed to scroll to the future. Default = 50
+                futureScrollRange={1}
+                // Enable or disable scrolling of calendar list
+                scrollEnabled={true}
+                // Enable or disable vertical scroll indicator. Default = false
+                showScrollIndicator={true}
+                onDayPress={(day) => { console.log('selected day', day.dateString) }}
+                hideExtraDays={false}
+                // markedDates={{
+                //     // '2021-10-17': {textColor: 'green'},
+                //     '2021-10-17': {startingDay: true, color: 'green'},
+                //     '2021-10-18': {selected: true, startingDay: true, color: 'green', textColor: 'gray'},
+                //     '2021-10-20': {disabled: false, endingDay: true, color: 'green', endingDay: true}
+                // }}
+                markedDates={{
+                    '2021-10-17': { dots: [vacation, massage, workout,workout1] },
+                    // '2021-10-18': {dots: [massage, workout], disabled: true}
+                }}
+                markingType={'multi-dot'}
 
-        <CalendarList
-            // Callback which gets executed when visible months change in scroll view. Default = undefined
-            onVisibleMonthsChange={(months) => { console.log('now these months are visible', months); }}
-            // Max amount of months allowed to scroll to the past. Default = 50
-            pastScrollRange={2}
-            // Max amount of months allowed to scroll to the future. Default = 50
-            futureScrollRange={1}
-            // Enable or disable scrolling of calendar list
-            scrollEnabled={true}
-            // Enable or disable vertical scroll indicator. Default = false
-            showScrollIndicator={true}
-            onDayPress={(day) => { console.log('selected day', day.dateString) }}
-            hideExtraDays={false}
-            // markedDates={{
-            //     // '2021-10-17': {textColor: 'green'},
-            //     '2021-10-17': {startingDay: true, color: 'green'},
-            //     '2021-10-18': {selected: true, startingDay: true, color: 'green', textColor: 'gray'},
-            //     '2021-10-20': {disabled: false, endingDay: true, color: 'green', endingDay: true}
-            // }}
-            markedDates={{
-                '2021-10-17': { dots: [vacation, massage, workout,workout1] },
-                // '2021-10-18': {dots: [massage, workout], disabled: true}
-            }}
-            markingType={'multi-dot'}
 
-
-        />
+            />
+        </ScrollView>
     );
 }
 const styles = StyleSheet.create({
