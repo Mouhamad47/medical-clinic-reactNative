@@ -2,10 +2,49 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, ScrollView, ImageBackground, Dimensions, Image, Item, TextInput, Button, Pressable, TouchableOpacity } from 'react-native';
 import React, { useState, createRef } from 'react';
 import Header from '../../components/header';
+import api from '../../server/api';
+import { useEffect } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 
-export default function Profile() {
+export default function Profile({navigation}) {
+    const [userData, setUserData] = useState({});
+    const [greeting, setGreeting] = useState('');
+
+    const getUserProfile = async () =>{
+       api.getUserInfo().then((response)=>{
+           setUserData(response.data);
+            console.log(response.data);
+        })
+    }
+    const greetingMessage = ()=>{
+        let d = new Date();
+        let t = d.getHours();
+        if(t<12){
+            setGreeting("Good Morning");
+        }
+        else if (t<18){
+            setGreeting("Good Afternoon");
+        }
+        else{
+            setGreeting("Good Evening");
+        }
+    }
+    const handleLogout = ()=> {
+        api.logout().then((response)=> {console.log('logout')})
+        AsyncStorage.clear();
+        navigation.replace('Auth');
+    }
+
+
+    
+
+    useEffect(() => {
+        getUserProfile();
+        greetingMessage();
+    }, [])
+
     return (
         <View style={{ backgroundColor: 'white' }}>
              <Header/>
@@ -15,11 +54,11 @@ export default function Profile() {
             <View style={styles.profileView}>
                 <View style={styles.imageView}>
                     <Image style={{ width: 100, height: 100 }} source={require('../../pictures/avatar.svg')} />
-                    <Text style={styles.userName}>John Doe</Text>
-                    <Text style={styles.greeting}> Greeting message depends on time </Text>
+                    <Text style={styles.userName}>{userData.first_name} {userData.last_name}</Text>
+                    <Text style={styles.greeting}> {greeting} </Text>
                 </View>
                 <View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress ={handleLogout}>
                     <View style = {styles.menuItem}>
                         <Icon name = 'sign-out' color = "#24447C" size={25} />
                         <Text style={styles.menuItemText}>Logout</Text>

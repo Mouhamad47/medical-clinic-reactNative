@@ -1,36 +1,74 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, ScrollView, ImageBackground, Dimensions, Image, Item, TextInput, Button, Pressable } from 'react-native';
 import React, { useState, createRef } from 'react';
+import api from '../../server/api';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useSelector } from 'react-redux';
 
 
-export default function Login() {
+export default function Login({ navigation }) {
+
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [errortext, setErrortext] = useState('');
+    const handleLogin = () => {
+        setErrortext('');
+        if ((!userEmail) || (!userPassword)) {
+            setErrortext('Both email and password are required');
+            return;
+        }
+        let dataToSend = { email: userEmail, password: userPassword };
+        api.login(dataToSend, { headers: { 'Accept': "application/json", 'content-type': "application/json" } })
+            .then(response => {
+                // If server response message same as Data Matched
+                if (response.status === 200) {
+                    AsyncStorage.setItem('access_token', response.data.access_token);
+                    navigation.replace('MainTabScreen');
+                }
+                else {
+                    setErrortext('Please check your email id or password');
+                }
+                console.log(response.data.access_token);
+            })
+            .catch((error) => {
+                setErrortext('Please check your email or password');
+                console.error(error);
+            });
+    };
     return (
 
 
         <ImageBackground source={require('../../pictures/loginback.png')} style={styles.img}>
             <View style={styles.logindiv}>
-               
+
             </View>
             <View style={styles.logodiv}>
-                    <Image source={require('../../pictures/lognative.png')} style={styles.logo}></Image>
-                    {/* <Text style={styles.logotext}>Medical Clinic</Text> */}
-                </View>
-                <View style={styles.form}>
-                    <Text style={styles.label}><Icon name="user" style={{fontSize:16}} /> Email Address</Text>
-                    <TextInput style={styles.inputs} placeholder=' Enter your email address' keyboardType='email-address' />
-                </View>
-                <View style={styles.form}>
-                    <Text style={styles.label}><Icon name="lock" style={{fontSize:16}} /> Password</Text>
-                    <TextInput style={styles.inputs} placeholder=' Enter your password' keyboardType='email-address' />
-                </View>
-                <View style={styles.buttonView}>
+                <Image source={require('../../pictures/lognative.png')} style={styles.logo}></Image>
+                {/* <Text style={styles.logotext}>Medical Clinic</Text> */}
+            </View>
+            <View style={styles.form}>
+                <Text style={styles.label}><Icon name="user" style={{ fontSize: 16 }} /> Email Address</Text>
+                <TextInput style={styles.inputs} placeholder=' Enter your email address' keyboardType='email-address'
+                    onChangeText={(UserEmail) => { setUserEmail(UserEmail); setErrortext('') }} />
+            </View>
+            <View style={styles.form}>
+                <Text style={styles.label}><Icon name="lock" style={{ fontSize: 16 }} /> Password</Text>
+                <TextInput style={styles.inputs} placeholder=' Enter your password' keyboardType='email-address'
+                    onChangeText={(UserPassword) => { setUserPassword(UserPassword); setErrortext('') }} />
+            </View>
 
-                    <Pressable style={styles.button}>
-                        <Text style={styles.btntext}>Login</Text>
-                    </Pressable>
+            <View style={styles.buttonView}>
+                {errortext != '' ? (
+                    <Text style={styles.errorTextStyle}>
+                        {errortext}
+                    </Text>
+                ) : null}
+                <Pressable style={styles.button} onPress={handleLogin} >
+                    <Text style={styles.btntext}>Login</Text>
+                </Pressable>
 
 
-                </View>
+            </View>
 
         </ImageBackground>
 
@@ -69,12 +107,12 @@ const styles = StyleSheet.create({
     logodiv: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop : -505,
+        marginTop: -505,
     },
     logo: {
         width: 120,
         height: 120,
-        marginTop : 15
+        marginTop: 15
     },
     logocontainer: {
         alignItems: 'center',
@@ -100,7 +138,7 @@ const styles = StyleSheet.create({
     inputs: {
         paddingBottom: 10,
         paddingTop: 10,
-        paddingLeft : 5,
+        paddingLeft: 5,
         backgroundColor: 'white',
         borderRadius: 20,
         border: " 2px solid #3BA5A5",
@@ -128,5 +166,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 0.25,
         color: 'white',
+    },
+    errorTextStyle: {
+        color: 'red',
+        textAlign: 'center',
+        fontSize: 14,
+        fontWeight: '400',
+        opacity: 1
     },
 });

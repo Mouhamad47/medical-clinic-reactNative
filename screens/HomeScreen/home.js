@@ -5,6 +5,9 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { Avatar, Card } from 'react-native-paper';
 import EventCalendar from 'react-native-events-calendar';
 import Header from '../../components/header';
+import api from '../../server/api';
+import { useEffect } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 
@@ -20,8 +23,18 @@ const workout = { key: 3, color: 'green' };
 const workout1 = { key: 4, color: 'red' };
 
 
-export default function Home() {
+export default function Home({navigation}) {
+    // const allUsers = ()=>{
+    //    console.log("hello from getallusers");
+    //    api.test().then(response=>{
+    //        console.log(response.data);
+    //        AsyncStorage.setItem('access_token',response.data.title);
+    //    })
+    // }
 
+    useEffect(() => {
+        // allUsers();
+      }, []);
 
     return (
         // <View style={{ flex: 1 }}>
@@ -46,14 +59,17 @@ export default function Home() {
                 // Callback which gets executed when visible months change in scroll view. Default = undefined
                 onVisibleMonthsChange={(months) => { console.log('now these months are visible', months); }}
                 // Max amount of months allowed to scroll to the past. Default = 50
-                pastScrollRange={2}
+                pastScrollRange={0}
                 // Max amount of months allowed to scroll to the future. Default = 50
                 futureScrollRange={1}
                 // Enable or disable scrolling of calendar list
                 scrollEnabled={true}
                 // Enable or disable vertical scroll indicator. Default = false
                 showScrollIndicator={true}
-                onDayPress={(day) => { console.log('selected day', day.dateString) }}
+                onDayPress={(day) => {
+                     console.log('selected day', day.dateString) ;
+                     navigation.navigate('Schedule')
+                    }}
                 hideExtraDays={false}
                 // markedDates={{
                 //     // '2021-10-17': {textColor: 'green'},
