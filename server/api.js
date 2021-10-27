@@ -33,7 +33,15 @@ export default {
         let header = await getHeader();
         let res = await axios.get(`${BASE_URL}/userinfo`, header);
         return res;
+    },
+    
+    getConsultationsByDate : async(date)=>{ 
+        let header = await getHeader();
+        let res = await axios.get(`${BASE_URL}/getconsultationsbydate/${date}`,header);
+        return res;
     }
+
+
 
 
 }

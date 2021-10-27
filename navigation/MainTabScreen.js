@@ -14,19 +14,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MessageStack from '../screens/MessagesScreen/messages';
 import SwitchStack from './SwitchStack';
 import AsyncStorage from '@react-native-community/async-storage';
+import NurseHomeScreen from '../screens/NurseHomeScreen/nursehome'
 
 const Tab = createMaterialBottomTabNavigator();
 
 
 export default function MainTabScreen() {
-let navigation = useNavigation();
-const [auth, setAuth] = useState('');
+  let navigation = useNavigation();
+  const [auth, setAuth] = useState('');
+  const [role, setRole] = useState(false);
 
-  useEffect(() => {
-    checkNavigation();
-  }, [checkNavigation]);
 
-  const checkNavigation = ()=>{
+
+  const checkNavigation = () => {
     AsyncStorage.getItem("access_token").then((value) => {
       setAuth(value);
       if (auth == null) {
@@ -34,6 +34,22 @@ const [auth, setAuth] = useState('');
       }
     })
   }
+  const getUserRole = () => {
+    AsyncStorage.getItem("role").then((value) => {
+      if (value == 2) {
+        setRole(true)
+      }
+      else {
+        setRole(false);
+      }
+    })
+  }
+
+  useEffect(() => {
+    checkNavigation();
+    getUserRole();
+
+  }, [role]);
 
   return (
     <Tab.Navigator
@@ -43,21 +59,38 @@ const [auth, setAuth] = useState('');
 
       barStyle={{ backgroundColor: 'white' }}
     >
-      <Tab.Screen
-        name="HomeTab"
-        component={SwitchStack}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
+      {role
+        ? <Tab.Screen
+          name="HomeTab"
+          component={SwitchStack}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color }) => (
 
-            <Icon name="home" color={color} size={25} />
-          ),
-          title: 'Home',
+              <Icon name="home" color={color} size={25} />
+            ),
+            title: 'Home',
 
-        }}
+          }}
 
 
-      />
+        />
+        : <Tab.Screen
+          name="NurseHomeTab"
+          component={NurseHomeScreen}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color }) => (
+
+              <Icon name="home" color={color} size={25} />
+            ),
+            title: 'NurseHome',
+
+          }}
+
+
+        />
+      }
       <Tab.Screen
         name="Notifications"
         component={NotificationsScreen}

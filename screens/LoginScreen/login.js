@@ -23,6 +23,7 @@ export default function Login({ navigation }) {
                 // If server response message same as Data Matched
                 if (response.status === 200) {
                     AsyncStorage.setItem('access_token', response.data.access_token);
+                    AsyncStorage.setItem('role',response.data.user.role);
                     navigation.replace('MainTabScreen');
                 }
                 else {

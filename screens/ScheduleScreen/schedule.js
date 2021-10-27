@@ -1,57 +1,78 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, ScrollView, ImageBackground, Dimensions, Image, Item, TextInput, Button, Pressable, TouchableOpacity, FlatList } from 'react-native';
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
+import api from '../../server/api';
 
 
 
-export default function Schedule() {
-    const consultations =[
-        {
-            id : '1',
-            first_name : 'Mouhamad',
-            last_name : 'Assaad',
-            address : 'Tripoli',
-            phone_number: '70140960',
-            start_date : '10:00 AM',
-            end_date : '10:30 AM'
-        },
-        {
-            id : '2',
-            first_name : 'Mouhamad',
-            last_name : 'Assaad',
-            address : 'Tripoli',
-            phone_number: '70140960',
-            start_date : '10:00 AM',
-            end_date : '10:30 AM'
-        },
-        {
-            id : '3',
-            first_name : 'Mouhamad',
-            last_name : 'Assaad',
-            address : 'Tripoli',
-            phone_number: '70140960',
-            start_date : '10:00 AM',
-            end_date : '10:30 AM'
-        },
-        {
-            id : '4',
-            first_name : 'Mouhamad',
-            last_name : 'Assaad',
-            address : 'Tripoli',
-            phone_number: '70140960',
-            start_date : '10:00 AM',
-            end_date : '10:30 AM'
-        },
-        {
-            id : '5',
-            first_name : 'Mouhamad',
-            last_name : 'Assaad',
-            address : 'Tripoli',
-            phone_number: '70140960',
-            start_date : '10:00 AM',
-            end_date : '10:30 AM'
-        },
-    ];
+export default function Schedule({route}) {
+   
+    const {dateDay} = route.params ;
+    const [consultations,setConsultations]=useState([]);
+
+    const getConsultations = async (dateDay) =>{
+        api.getConsultationsByDate(dateDay).then((response)=>{
+            
+            setConsultations(response.data);
+             console.log(response.data);
+         })
+     }
+
+     useEffect(() => {
+        getConsultations(dateDay);
+        // console.log(dateDay);
+    }, [])
+   
+   
+   
+   
+    // const consultations =[
+    //     {
+    //         id : '1',
+    //         first_name : 'Mouhamad',
+    //         last_name : 'Assaad',
+    //         address : 'Tripoli',
+    //         phone_number: '70140960',
+    //         start_date : '10:00 AM',
+    //         end_date : '10:30 AM'
+    //     },
+    //     {
+    //         id : '2',
+    //         first_name : 'Mouhamad',
+    //         last_name : 'Assaad',
+    //         address : 'Tripoli',
+    //         phone_number: '70140960',
+    //         start_date : '10:00 AM',
+    //         end_date : '10:30 AM'
+    //     },
+    //     {
+    //         id : '3',
+    //         first_name : 'Mouhamad',
+    //         last_name : 'Assaad',
+    //         address : 'Tripoli',
+    //         phone_number: '70140960',
+    //         start_date : '10:00 AM',
+    //         end_date : '10:30 AM'
+    //     },
+    //     {
+    //         id : '4',
+    //         first_name : 'Mouhamad',
+    //         last_name : 'Assaad',
+    //         address : 'Tripoli',
+    //         phone_number: '70140960',
+    //         start_date : '10:00 AM',
+    //         end_date : '10:30 AM'
+    //     },
+    //     {
+    //         id : '5',
+    //         first_name : 'Mouhamad',
+    //         last_name : 'Assaad',
+    //         address : 'Tripoli',
+    //         phone_number: '70140960',
+    //         start_date : '10:00 AM',
+    //         end_date : '10:30 AM'
+    //     },
+    // ];
     return (
         <View style={{ backgroundColor: 'white',height:'100%' }}>
             <View style={styles.title}>
@@ -69,7 +90,7 @@ export default function Schedule() {
                             <View style={styles.consultationView} >
                                 <View style={{flex:4}}>
                                     <View style={styles.consultationDate}>
-                                        <Text style={styles.consultationDateText}>{item.start_date} - {item.end_date}</Text>
+                                        <Text style={styles.consultationDateText}>{item.start_hour} - {item.end_hour}</Text>
                                     </View>
                                     <View style={styles.nameView}>
                                         <Text style={styles.nameText}>{item.first_name} {item.last_name}</Text>
