@@ -60,7 +60,7 @@ export default function Profile({navigation}) {
                 <View>
                     <TouchableOpacity onPress ={handleLogout}>
                     <View style = {styles.menuItem}>
-                        <Icon name = 'sign-out' color = "#24447C" size={25} />
+                        <Icon name = 'sign-out' color = "#ef3737" size={25} />
                         <Text style={styles.menuItemText}>Logout</Text>
                     </View>
                     </TouchableOpacity>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         marginTop: 200
     },
     menuItemText : {
-        color : '#24447C',
+        color : '#ef3737',
         marginLeft : 20,
         fontWeight : '600',
         fontSize : 16,
