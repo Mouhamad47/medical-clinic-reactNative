@@ -2,21 +2,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, ScrollView, ImageBackground, FlatList, Dimensions, Image, Item, TextInput, Button, Pressable } from 'react-native';
 import React, { useState, createRef } from 'react';
 import Header from '../../components/header';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import config from '../../firebase/firebaseconfig'
 import { useEffect } from 'react';
+import 'firebase/firestore'; 
 import AsyncStorage from '@react-native-community/async-storage';
 
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config);
-} else {
-    firebase.app(); // if already initialized
-}
+} 
 
 const db = firebase.firestore();
 db.settings({
-    timestampsInSnapshots: true
+    timestampsInSnapshots: true,
+    merge : true
 });
 
 export default function Notification() {
@@ -41,10 +41,26 @@ export default function Notification() {
                 setNotifications(listNotifications);
             })
         });
+       
+            // db.collection('notifications').doc('2').collection('2').onSnapshot(snapchot => {
+            //     snapchot.docChanges().forEach(change => {
+            //         if (change.type === 'added') {
+            //             // console.log(change.doc.data().idTo);
+            //             if (change.doc.data().idTo == 2) {
+            //                 listNotifications.push(change.doc.data());
+            //             }
+            //         }
+            //     })
+            //     setNotifications(listNotifications);
+            // })
+        
     }
 
     useEffect(() => {
-        getAllNotifications();
+        setTimeout(() => {
+            getAllNotifications();
+        }, 1500);
+       
     }, [])
 
 
