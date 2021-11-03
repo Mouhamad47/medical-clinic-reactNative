@@ -22,7 +22,7 @@ const Tab = createMaterialBottomTabNavigator();
 export default function MainTabScreen() {
   let navigation = useNavigation();
   const [auth, setAuth] = useState('');
-  const [role, setRole] = useState(false);
+  const [role, setRole] = useState(true);
 
 
 
@@ -47,7 +47,7 @@ export default function MainTabScreen() {
 
   useEffect(() => {
     checkNavigation();
-    getUserRole();
+    // getUserRole();
 
   }, [role]);
 

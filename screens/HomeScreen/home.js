@@ -13,14 +13,36 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 let { width } = Dimensions.get('window');
-const vacation = { key: 1, color: 'red', selectedDotColor: 'blue' };
-const massage = { key: 2, color: 'blue', selectedDotColor: 'blue' };
-const workout = { key: 3, color: 'green' };
-const workout1 = { key: 4, color: 'red' };
+const vacation = {  color: 'red' };
+const massage = { color: '#24447C'};
+const workout = {  color: 'green' };
+const workout1 = {  color: 'red' };
+
 
 
 export default function Home({navigation}) {
+    const [dots,setDots]=useState({});
+    const massage = { color: '#24447C'};
+
+
+    const getConsDots = async () =>{
+        api.getUserDots().then((response)=>{
+            let json_data = Object.assign({},response.data);
+            // data = JSON.parse(response.data);
+            setDots(json_data);
+             console.log(json_data);
+         })
+     }
+    // const getAllMessages = async()=>{
+    //     api.getMessages().then((response)=>{
+    //         console.log(response);
+    //     })
+    // } 
+    //  useEffect(() => {
+    //     getAllMessages();
+    // }, [])
   
+
     return (
        
         <ScrollView>
@@ -41,16 +63,16 @@ export default function Home({navigation}) {
                     navigation.navigate('Schedule', {dateDay:day.dateString});
                    }}
                 hideExtraDays={false}
-                // markedDates={{
-                //     // '2021-10-17': {textColor: 'green'},
-                //     '2021-10-17': {startingDay: true, color: 'green'},
-                //     '2021-10-18': {selected: true, startingDay: true, color: 'green', textColor: 'gray'},
-                //     '2021-10-20': {disabled: false, endingDay: true, color: 'green', endingDay: true}
-                // }}
-                markedDates={{
-                    '2021-10-17': { dots: [vacation, massage, workout,workout1] },
-                    // '2021-10-18': {dots: [massage, workout], disabled: true}
-                }}
+               
+                // markedDates={
+                //     {
+                //         '2021-10-17':
+                //         { dots:
+                //             [massage]
+                //         }
+                //     }
+                //     }
+                markedDates={dots}
                 markingType={'multi-dot'}
 
 

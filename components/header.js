@@ -11,7 +11,7 @@ export default function Header(){
     return(
         <View>
             <View style={styles.imageView} >
-                <Image style={{width:150,height:70}} source={require('../pictures/logo2.png')} />
+                <Image style={{width:150,height:62}} source={require('../pictures/logo1.png')} />
             </View>
 
         </View>

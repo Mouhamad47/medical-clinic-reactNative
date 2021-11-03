@@ -7,6 +7,8 @@ import Login from './screens/LoginScreen/login';
 import MainTabScreen from './navigation/mainTabScreen';
 import ScheduleScreen from './screens/ScheduleScreen/schedule';
 import { useState } from 'react';
+// import { firebase } from 'react-native-firebase';
+// import firestore from '@react-native-firebase/firestore'
 
 
 

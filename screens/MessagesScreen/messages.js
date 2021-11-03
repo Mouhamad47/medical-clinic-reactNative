@@ -26,20 +26,7 @@ const MessagesJson = [
         messageTime: '4 mins ago',
         messageText: 'Hey there, this is my test for a post my social app in React Native '
     },
-    {
-        id: '4',
-        userName: 'Nabiha family',
-        userImg: require('../../pictures/avatar.svg'),
-        messageTime: '4 mins ago',
-        messageText: 'Hey there, this is my test for a post my social app in React Native '
-    },
-    {
-        id: '5',
-        userName: 'Nabiha family',
-        userImg: require('../../pictures/avatar.svg'),
-        messageTime: '4 mins ago',
-        messageText: 'Hey there, this is my test for a post my social app in React Native '
-    },
+   
 
 
 ]
@@ -48,13 +35,13 @@ export default function Messages() {
         <View style={{ backgroundColor: 'white' }}>
              <Header/>
             <View style={styles.title}>
-                <Text style={styles.titleText}>Chats</Text>
+                <Text style={styles.titleText}>Chats(3)</Text>
             </View>
             <View>
                 <View style={styles.container}>
-                    <View style={styles.numberOfChatView} >
+                    {/* <View style={styles.numberOfChatView} >
                         <Text style={styles.numberOfChat}>2 Chats</Text>
-                    </View>
+                    </View> */}
                     <ScrollView >
                         <FlatList
                             style={{ height: 480, marginTop: 10 }}
@@ -90,7 +77,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: 25,
-        fontWeight: 600,
+        fontWeight: 700,
         color: '#24447C',
         letterSpacing: 1,
     },

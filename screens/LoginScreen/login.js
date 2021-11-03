@@ -24,6 +24,7 @@ export default function Login({ navigation }) {
                 if (response.status === 200) {
                     AsyncStorage.setItem('access_token', response.data.access_token);
                     AsyncStorage.setItem('role',response.data.user.role);
+                    AsyncStorage.setItem('user',response.data.user.id);
                     navigation.replace('MainTabScreen');
                 }
                 else {
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     inputs: {
         paddingBottom: 10,
         paddingTop: 10,
-        paddingLeft: 5,
+        paddingLeft: 15,
         backgroundColor: 'white',
         borderRadius: 20,
         border: " 2px solid #3BA5A5",
