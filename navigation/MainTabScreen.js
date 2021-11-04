@@ -15,6 +15,7 @@ import MessageStack from '../screens/MessagesScreen/messages';
 import SwitchStack from './SwitchStack';
 import AsyncStorage from '@react-native-community/async-storage';
 import NurseHomeScreen from '../screens/NurseHomeScreen/nursehome'
+import ChatNavigation from './ChatNavigation';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -104,7 +105,7 @@ export default function MainTabScreen() {
       />
       <Tab.Screen
         name="Messages"
-        component={MessageStack}
+        component={ChatNavigation}
         options={{
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color }) => (

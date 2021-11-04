@@ -1,41 +1,58 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity, ImageBackground, Dimensions, Image, Item, TextInput, Button, Pressable } from 'react-native';
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import Header from '../../components/header';
+import api from '../../server/api';
+import ChatNavigation from '../../navigation/ChatNavigation';
 
 
-const MessagesJson = [
-    {
-        id: '1',
-        userName: 'Nabih Tannous',
-        userImg: require('../../pictures/avatar.svg'),
-        messageTime: '4 mins ago',
-        messageText: 'Hey there, this is my test for a post my social app in React Native '
-    },
-    {
-        id: '2',
-        userName: 'Nabiha family',
-        userImg: require('../../pictures/avatar.svg'),
-        messageTime: '4 mins ago',
-        messageText: 'Hey there, this is my test for a post my social app in React Native '
-    },
-    {
-        id: '3',
-        userName: 'Nabiha family',
-        userImg: require('../../pictures/avatar.svg'),
-        messageTime: '4 mins ago',
-        messageText: 'Hey there, this is my test for a post my social app in React Native '
-    },
-   
+const messages = [
+    // {
+    //     id: '1',
+    //     userName: 'Nabih Tannous',
+    //     userImg: require('../../pictures/avatar.svg'),
+    //     messageTime: '4 mins ago',
+    //     messageText: 'Hey there, this is my test for a post my social app in React Native '
+    // },
+    // {
+    //     id: '2',
+    //     userName: 'Nabiha family',
+    //     userImg: require('../../pictures/avatar.svg'),
+    //     messageTime: '4 mins ago',
+    //     messageText: 'Hey there, this is my test for a post my social app in React Native '
+    // },
+    // {
+    //     id: '3',
+    //     userName: 'Nabiha family',
+    //     userImg: require('../../pictures/avatar.svg'),
+    //     messageTime: '4 mins ago',
+    //     messageText: 'Hey there, this is my test for a post my social app in React Native '
+    // },
+
 
 
 ]
-export default function Messages() {
+export default function Messages({ navigation }) {
+
+    const [messages, setMessages] = useState([]);
+
+    const getListOfUser = async (id) => {
+        api.selectAllUsersExceptOne(id).then((response) => {
+            setMessages(response.data);
+            console.log(response);
+        })
+    }
+
+    useEffect(() => {
+        getListOfUser(2);
+
+    }, [])
+
     return (
         <View style={{ backgroundColor: 'white' }}>
-             <Header/>
+            <Header />
             <View style={styles.title}>
-                <Text style={styles.titleText}>Chats(3)</Text>
+                <Text style={styles.titleText}>Chats({messages.length})</Text>
             </View>
             <View>
                 <View style={styles.container}>
@@ -45,21 +62,21 @@ export default function Messages() {
                     <ScrollView >
                         <FlatList
                             style={{ height: 480, marginTop: 10 }}
-                            data={MessagesJson}
-                            keyExtractor={item => item.id}
+                            data={messages}
+                            keyExtractor={item => `${item.id}`}
                             renderItem={({ item }) => (
-                                
-                                <TouchableOpacity style={styles.card} >
+
+                                <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Chat Screen', { id: item.id, first_name: item.first_name, last_name: item.last_name })} >
                                     <View style={styles.userinfo}>
                                         <View style={styles.userimagewrapper}>
-                                            <Image source={item.userImg} style={styles.userimage} />
+                                            <Image source={require('../../pictures/avatar.svg')} style={styles.userimage} />
                                         </View>
                                         <View style={styles.textsection}>
                                             <View style={styles.userinfotext}>
-                                                <Text style={styles.username}> {item.userName} </Text>
-                                                <Text style={styles.posttime}>{item.messageTime}</Text>
+                                                <Text style={styles.username}> {item.first_name} {item.last_name} </Text>
+                                                <Text style={styles.posttime}>4:00 PM</Text>
                                             </View>
-                                            <Text style={styles.messagetext}>{item.messageText}</Text>
+                                            <Text style={styles.messagetext}>lorem lorem lorem lorem lorem</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -112,7 +129,7 @@ const styles = StyleSheet.create({
     userimagewrapper: { //view
         paddingTop: 27,
         paddingBottom: 15,
-        flex : 0.5
+        flex: 0.5
     },
     userimage: { //img
         width: 40,
@@ -128,7 +145,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderBottomWidth: 1,
         borderBottomColor: '#24447C',
-        flex:4.5
+        flex: 4.5
     },
     userinfotext: { //view
         flexDirection: 'row',

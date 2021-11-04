@@ -75,6 +75,12 @@ export default {
         let res = await axios.get(`${BASE_URL}/getdots`, header)
         return res;
     },
+    selectAllUsersExceptOne: async (id)=>{
+        let header = await getHeader();
+        let res  = await axios.get(`${BASE_URL}/getalluerexceptlogged/${id}`, header)
+        return res;
+    }
+
     // getMessages : async()=>{
     //     const messages = await db.collection('messages').doc('1-2').collection('1-2').onSnapshot(snapchot=>{
     //         snapchot.docChanges().forEach(change=>{
