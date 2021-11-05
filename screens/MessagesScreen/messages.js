@@ -4,37 +4,27 @@ import React, { useState, createRef, useEffect } from 'react';
 import Header from '../../components/header';
 import api from '../../server/api';
 import ChatNavigation from '../../navigation/ChatNavigation';
+import firebase from 'firebase/app';
+import config from '../../firebase/firebaseconfig';
+import 'firebase/firestore';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
-const messages = [
-    // {
-    //     id: '1',
-    //     userName: 'Nabih Tannous',
-    //     userImg: require('../../pictures/avatar.svg'),
-    //     messageTime: '4 mins ago',
-    //     messageText: 'Hey there, this is my test for a post my social app in React Native '
-    // },
-    // {
-    //     id: '2',
-    //     userName: 'Nabiha family',
-    //     userImg: require('../../pictures/avatar.svg'),
-    //     messageTime: '4 mins ago',
-    //     messageText: 'Hey there, this is my test for a post my social app in React Native '
-    // },
-    // {
-    //     id: '3',
-    //     userName: 'Nabiha family',
-    //     userImg: require('../../pictures/avatar.svg'),
-    //     messageTime: '4 mins ago',
-    //     messageText: 'Hey there, this is my test for a post my social app in React Native '
-    // },
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
+const db = firebase.firestore();
+db.settings({
+    timestampsInSnapshots: true,
+    merge: true
+});
 
 
-
-]
 export default function Messages({ navigation }) {
 
     const [messages, setMessages] = useState([]);
+    const [lastmessage,setLastMessage] = useState([]);
 
     const getListOfUser = async (id) => {
         api.selectAllUsersExceptOne(id).then((response) => {
@@ -44,7 +34,11 @@ export default function Messages({ navigation }) {
     }
 
     useEffect(() => {
-        getListOfUser(2);
+        AsyncStorage.getItem('user').then((value)=>{
+            getListOfUser(value);
+        })
+       
+        // const unsubscribe = db.collection('messages').doc()
 
     }, [])
 
