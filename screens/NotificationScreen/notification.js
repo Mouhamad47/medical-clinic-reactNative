@@ -1,66 +1,72 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, ScrollView, ImageBackground, FlatList, Dimensions, Image, Item, TextInput, Button, Pressable } from 'react-native';
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useLayoutEffect } from 'react';
 import Header from '../../components/header';
+import moment from 'moment';
 import firebase from 'firebase/app';
 import config from '../../firebase/firebaseconfig'
 import { useEffect } from 'react';
-import 'firebase/firestore'; 
+import 'firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config);
-} 
+}
 
 const db = firebase.firestore();
 db.settings({
     timestampsInSnapshots: true,
-    merge : true
+    merge: true
 });
 
-export default function Notification() {
+export default function Notification({ route }) {
     const [notifications, setNotifications] = useState([]);
     // const [userId, setUserId] = useState();
 
 
-
-
-    const getAllNotifications = () => {
-        let listNotifications = [];
+    useLayoutEffect(() => {
         AsyncStorage.getItem('user').then((value) => {
-            db.collection('notifications').doc(`${value}`).collection(`${value}`).onSnapshot(snapchot => {
-                snapchot.docChanges().forEach(change => {
-                    if (change.type === 'added') {
-                        // console.log(change.doc.data().idTo);
-                        if (change.doc.data().idTo == 2) {
-                            listNotifications.push(change.doc.data());
-                        }
-                    }
-                })
-                setNotifications(listNotifications);
-            })
-        });
-       
-            // db.collection('notifications').doc('2').collection('2').onSnapshot(snapchot => {
-            //     snapchot.docChanges().forEach(change => {
-            //         if (change.type === 'added') {
-            //             // console.log(change.doc.data().idTo);
-            //             if (change.doc.data().idTo == 2) {
-            //                 listNotifications.push(change.doc.data());
-            //             }
-            //         }
-            //     })
-            //     setNotifications(listNotifications);
-            // })
+            const unsubscribe = db.collection('notifications')
+                .doc(`${value}`)
+                .collection(`${value}`)
+                .orderBy("timestamp", "desc")
+                .onSnapshot((snapchot) => setNotifications(
+                    snapchot.docs
+                        .map(doc => ({
+                            id: doc.id,
+                            data: doc.data()
+                        }))
+
+                ))
+            return unsubscribe;
+            
+        })
         
-    }
+    }, [])
+
+    // const getAllNotifications = () => {
+    //     let listNotifications = [];
+    //     AsyncStorage.getItem('user').then((value) => {
+    //         db.collection('notifications').doc(`${value}`).collection(`${value}`).onSnapshot(snapchot => {
+    //             snapchot.docChanges().forEach(change => {
+    //                 if (change.type === 'added') {
+    //                     // console.log(change.doc.data().idTo);
+    //                     if (change.doc.data().idTo == value) {
+    //                         listNotifications.push(change.doc.data());
+    //                     }
+    //                 }
+    //             })
+    //             setNotifications(listNotifications);
+    //         })
+    //     });
+
+
+    // }
 
     useEffect(() => {
-        setTimeout(() => {
-            getAllNotifications();
-        }, 1500);
-       
+      
+
     }, [])
 
 
@@ -72,9 +78,9 @@ export default function Notification() {
         <ScrollView style={{ backgroundColor: 'white' }}>
             <Header />
             <View style={styles.title}>
-                <Text style={styles.titleText}>Notifications</Text>
+                <Text style={styles.titleText}>Notifications({notifications.length})</Text>
             </View>
-            <ScrollView >
+            <ScrollView  >
                 <FlatList
                     style={styles.notificationList}
                     data={notifications}
@@ -87,7 +93,7 @@ export default function Notification() {
                                 <Image style={styles.icon}
                                     source={require('../../pictures/avatar.svg')} />
 
-                                <Text style={styles.description}>{item.content}</Text>
+                                <Text style={styles.description}>{item.data.content} ({moment(item.data.timestamp).format('lll')}) </Text>
                             </View>
                         )
                     }} />

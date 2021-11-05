@@ -4,10 +4,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { StyleSheet, Text, View, ScrollView, ImageBackground, FlatList, Dimensions, Image, Item, TextInput, Button, Pressable, SafeAreaView, KeyboardAvoidingView, Platform, Touchable, TouchableOpacity, TouchableWithoutFeedbackBase, TouchableNativeFeedbackBase, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Avatar } from 'react-native-paper';
+import moment from 'moment';
 import { TouchableWithoutFeedback } from 'react-native-swipe-gestures'
 import firebase from 'firebase/app';
 import config from '../../firebase/firebaseconfig';
 import 'firebase/firestore';
+
 
 
 
@@ -135,12 +137,12 @@ export default function Chat({ navigation, route }) {
                             data.idTo == route.params.id ? (
                                 <View key={id} style={styles.reciever}>
                                     <Text style={styles.senderText}>{data.content}</Text>
-                                    <Text>{data.timestamp}</Text>
+                                    <Text style={[styles.momentmsg,{color:'white'}]}>{ moment(data.timestamp).format('LT') }</Text>
                                 </View>
                             ) : (
                                 <View key={id} style={styles.sender}>
                                     <Text style={styles.recieverText}>{data.content}</Text>
-                                    <Text>{data.timestamp}</Text>
+                                    <Text style={styles.momentmsg}>{ moment(data.timestamp).format('LT') }</Text>
                                 </View>
                                 
                             )
@@ -218,6 +220,9 @@ const styles = StyleSheet.create({
         fontWeight: 500,
         // marginLeft : 10,
         // marginBottom : 15
+    },
+    momentmsg :{
+        fontSize:12
     }
 
 
