@@ -55,7 +55,7 @@ export default function Login({ navigation }) {
             </View>
             <View style={styles.form}>
                 <Text style={styles.label}><Icon name="lock" style={{ fontSize: 16 }} /> Password</Text>
-                <TextInput style={styles.inputs} placeholder=' Enter your password' keyboardType='email-address'
+                <TextInput style={styles.inputs}  secureTextEntry={true} placeholder=' Enter your password' keyboardType='email-address'
                     onChangeText={(UserPassword) => { setUserPassword(UserPassword); setErrortext('') }} />
             </View>
 
