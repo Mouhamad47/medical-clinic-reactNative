@@ -77,23 +77,7 @@ export default function Chat({ navigation, route }) {
     }
 
 
-    // useLayoutEffect(() => {
-    //     AsyncStorage.getItem('user').then((value) => {
-    //         let groupChatId = `${route.params.id}-${value}`;
-    //         const unsubscribe = db.collection('messages')
-    //             .doc(groupChatId)
-    //             .collection(groupChatId)
-    //             .orderBy("timestamp", "desc")
-    //             .onSnapshot((snapchot) => setMessages(
-    //                 snapchot.docs.map(doc => ({
-    //                     id: doc.id,
-    //                     data: doc.data()
-    //                 }))
-    //             ))
-    //         return unsubscribe;
-    //     })
-
-    // }, [route])
+    
     useLayoutEffect(() => {
         AsyncStorage.getItem('user').then((value) => {
             let groupChatId = `${route.params.id}-${value}`;
@@ -116,11 +100,7 @@ export default function Chat({ navigation, route }) {
 
     }, [route])
 
-    // const arraySorting = (array)=>{
-    //     array.sort((a,b)=>{
-    //         return a.timestamp -b.timestamp;
-    //     })
-    // }
+    
 
 
 
@@ -130,7 +110,7 @@ export default function Chat({ navigation, route }) {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.container}
                 keyboardVerticalOffset={90}>
-                {/* <TouchableNativeFeedbackBase onPress ={Keyboard.dismiss}> */}
+               
                 <>
                     <ScrollView contentContainerStyle={{ paddingTop: 15 }}>
                         {messages.map(({ id, data }) => (
@@ -155,7 +135,7 @@ export default function Chat({ navigation, route }) {
                         </TouchableOpacity>
                     </View>
                 </>
-                {/* </TouchableNativeFeedbackBase> */}
+             
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
@@ -212,14 +192,12 @@ const styles = StyleSheet.create({
     recieverText: {
         color: 'black',
         fontWeight: 500,
-        // marginLeft : 10,
-        // marginBottom : 15
+        
     },
     senderText: {
         color: 'white',
         fontWeight: 500,
-        // marginLeft : 10,
-        // marginBottom : 15
+        
     },
     momentmsg :{
         fontSize:12

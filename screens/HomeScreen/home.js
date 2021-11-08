@@ -28,19 +28,12 @@ export default function Home({navigation}) {
     const getConsDots = async () =>{
         api.getUserDots().then((response)=>{
             let json_data = Object.assign({},response.data);
-            // data = JSON.parse(response.data);
+            
             setDots(json_data);
              console.log(json_data);
          })
      }
-    // const getAllMessages = async()=>{
-    //     api.getMessages().then((response)=>{
-    //         console.log(response);
-    //     })
-    // } 
-    //  useEffect(() => {
-    //     getAllMessages();
-    // }, [])
+   
   
 
     return (
@@ -64,14 +57,7 @@ export default function Home({navigation}) {
                    }}
                 hideExtraDays={false}
                
-                // markedDates={
-                //     {
-                //         '2021-10-17':
-                //         { dots:
-                //             [massage]
-                //         }
-                //     }
-                //     }
+               
                 markedDates={dots}
                 markingType={'multi-dot'}
 

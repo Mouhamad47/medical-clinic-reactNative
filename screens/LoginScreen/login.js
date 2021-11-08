@@ -46,7 +46,7 @@ export default function Login({ navigation }) {
             </View>
             <View style={styles.logodiv}>
                 <Image source={require('../../pictures/lognative.png')} style={styles.logo}></Image>
-                {/* <Text style={styles.logotext}>Medical Clinic</Text> */}
+                
             </View>
             <View style={styles.form}>
                 <Text style={styles.label}><Icon name="user" style={{ fontSize: 16 }} /> Email Address</Text>

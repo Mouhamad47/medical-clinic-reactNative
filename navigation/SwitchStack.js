@@ -19,7 +19,7 @@ export default function SwitchStack(){
         <Stack.Navigator initialRouteName ="Home">
             <Stack.Screen name = "Home" component = {HomeScreen} options={{headerShown : false}} />
             <Stack.Screen name = "Schedule" component = {ScheduleScreen} options={{headerShown : true,headerStyle:{backgroundColor:'#3BA5A5'},headerTintColor:'white'}} />
-            {/* <Stack.Screen name = "Favorites" component = {Favorites} options={{headerShown : false}} /> */}
+            
         </Stack.Navigator>
     );
 

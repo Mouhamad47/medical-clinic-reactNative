@@ -38,7 +38,7 @@ export default function Messages({ navigation }) {
             getListOfUser(value);
         })
        
-        // const unsubscribe = db.collection('messages').doc()
+        
 
     }, [])
 
@@ -50,9 +50,7 @@ export default function Messages({ navigation }) {
             </View>
             <View>
                 <View style={styles.container}>
-                    {/* <View style={styles.numberOfChatView} >
-                        <Text style={styles.numberOfChat}>2 Chats</Text>
-                    </View> */}
+                  
                     <ScrollView >
                         <FlatList
                             style={{ height: 480, marginTop: 10 }}
@@ -70,7 +68,7 @@ export default function Messages({ navigation }) {
                                                 <Text style={styles.username}> {item.first_name} {item.last_name} </Text>
                                                 <Text style={styles.posttime}>4:00 PM</Text>
                                             </View>
-                                            <Text style={styles.messagetext}>lorem lorem lorem lorem lorem</Text>
+                                            {/* <Text style={styles.messagetext}>lorem lorem lorem lorem lorem</Text> */}
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -116,7 +114,7 @@ const styles = StyleSheet.create({
     userinfo: { //view
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // backgroundColor : "red",
+        
 
 
     },

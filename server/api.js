@@ -1,16 +1,11 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
-// import { cond } from 'react-native-reanimated';
-// import { firebase } from 'react-native-firebase';
-// import firebase from 'react-native-firebase';
-// import  firebase from 'react-native-firebase' 
-import firebase from 'firebase';
-import config from './../firebase/firebaseconfig'
+import AsyncStorage from '@react-native-community/async-storage'; 
+
 
 
 const BASE_URL = 'http://127.0.0.1:8000/api';
 // const BASE_URL = 'http://medical-clinic.tk/api';
-// const db = firestore;
+
 
 const cookie = AsyncStorage.getItem("access_token");
 
@@ -36,19 +31,11 @@ export default {
         let res = await axios.get(`${BASE_URL}/logout`, header);
         return res;
     },
-
-    // getUserInfo: async () => {
-    //     let header = await getHeader();
-    //     let res = await axios.get(`${BASE_URL}/userinfo`, header);
-    //     return res;
-    // },
-
     getUserInfo: async () => {
         let header = await getHeader();
         let res = await axios.get(`${BASE_URL}/getLoggedDoctor`, header);
         return res;
     },
-
     getConsultationsByDate: async (date) => {
         let header = await getHeader();
         let res = await axios.get(`${BASE_URL}/getconsultationsbydate/${date}`, header);
@@ -62,6 +49,11 @@ export default {
     selectAllUsersExceptOne: async (id)=>{
         let header = await getHeader();
         let res  = await axios.get(`${BASE_URL}/getalluerexceptlogged/${id}`, header)
+        return res;
+    },
+    selectNumberOfPatients : async()=>{
+        let header = await getHeader();
+        let res  = await axios.get(`${BASE_URL}/getnumberofconsultations`, header)
         return res;
     }
 

@@ -22,7 +22,7 @@ db.settings({
 
 export default function Notification({ route }) {
     const [notifications, setNotifications] = useState([]);
-    // const [userId, setUserId] = useState();
+    
 
 
     useLayoutEffect(() => {
@@ -45,24 +45,7 @@ export default function Notification({ route }) {
         
     }, [])
 
-    // const getAllNotifications = () => {
-    //     let listNotifications = [];
-    //     AsyncStorage.getItem('user').then((value) => {
-    //         db.collection('notifications').doc(`${value}`).collection(`${value}`).onSnapshot(snapchot => {
-    //             snapchot.docChanges().forEach(change => {
-    //                 if (change.type === 'added') {
-    //                     // console.log(change.doc.data().idTo);
-    //                     if (change.doc.data().idTo == value) {
-    //                         listNotifications.push(change.doc.data());
-    //                     }
-    //                 }
-    //             })
-    //             setNotifications(listNotifications);
-    //         })
-    //     });
-
-
-    // }
+    
 
     useEffect(() => {
       
@@ -102,9 +85,7 @@ export default function Notification({ route }) {
     );
 }
 const styles = StyleSheet.create({
-    // container:{
-    //   backgroundColor:'#FBE8DA'
-    // },
+    
     title: {
         padding: 10
     },

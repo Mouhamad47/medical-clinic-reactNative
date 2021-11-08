@@ -14,65 +14,18 @@ export default function Schedule({route}) {
         api.getConsultationsByDate(dateDay).then((response)=>{
             
             setConsultations(response.data);
-             console.log(response.data);
+             
          })
      }
 
      useEffect(() => {
         getConsultations(dateDay);
-        // console.log(dateDay);
+        
     }, [])
    
    
    
    
-    // const consultations =[
-    //     {
-    //         id : '1',
-    //         first_name : 'Mouhamad',
-    //         last_name : 'Assaad',
-    //         address : 'Tripoli',
-    //         phone_number: '70140960',
-    //         start_date : '10:00 AM',
-    //         end_date : '10:30 AM'
-    //     },
-    //     {
-    //         id : '2',
-    //         first_name : 'Mouhamad',
-    //         last_name : 'Assaad',
-    //         address : 'Tripoli',
-    //         phone_number: '70140960',
-    //         start_date : '10:00 AM',
-    //         end_date : '10:30 AM'
-    //     },
-    //     {
-    //         id : '3',
-    //         first_name : 'Mouhamad',
-    //         last_name : 'Assaad',
-    //         address : 'Tripoli',
-    //         phone_number: '70140960',
-    //         start_date : '10:00 AM',
-    //         end_date : '10:30 AM'
-    //     },
-    //     {
-    //         id : '4',
-    //         first_name : 'Mouhamad',
-    //         last_name : 'Assaad',
-    //         address : 'Tripoli',
-    //         phone_number: '70140960',
-    //         start_date : '10:00 AM',
-    //         end_date : '10:30 AM'
-    //     },
-    //     {
-    //         id : '5',
-    //         first_name : 'Mouhamad',
-    //         last_name : 'Assaad',
-    //         address : 'Tripoli',
-    //         phone_number: '70140960',
-    //         start_date : '10:00 AM',
-    //         end_date : '10:30 AM'
-    //     },
-    // ];
     return (
         <View style={{ backgroundColor: 'white',height:'100%' }}>
             <View style={styles.title}>

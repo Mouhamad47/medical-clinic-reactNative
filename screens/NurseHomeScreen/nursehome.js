@@ -41,15 +41,9 @@ export default function Home({navigation}) {
                    
                    }}
                 hideExtraDays={false}
-                // markedDates={{
-                //     // '2021-10-17': {textColor: 'green'},
-                //     '2021-10-17': {startingDay: true, color: 'green'},
-                //     '2021-10-18': {selected: true, startingDay: true, color: 'green', textColor: 'gray'},
-                //     '2021-10-20': {disabled: false, endingDay: true, color: 'green', endingDay: true}
-                // }}
                 markedDates={{
-                    '2021-10-17': { dots: [vacation, massage, workout,workout1] },
-                    // '2021-10-18': {dots: [massage, workout], disabled: true}
+                    '2021-11-17': { dots: [vacation, massage, workout,workout1] },
+                    
                 }}
                 markingType={'multi-dot'}
 
